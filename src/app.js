@@ -34,11 +34,11 @@ app.listen(port, () => {
     })
 });
 
-// set api router
-app.use('/', api);
-
 // set public path
 app.use('/', express.static(path.join(__dirname, './../public')));
+
+// set api router
+app.use('/', api);
 
 /* handle error */
 app.use(function (err, req, res, next) {

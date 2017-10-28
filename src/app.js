@@ -18,20 +18,20 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 // parse JSON and url-encoded query
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // access log setting
-const accessLogStream = fs.createWriteStream(path.join(appPath.LOG_PATH, 'access.log'), { flags: 'a' });
-app.use(morgan('combined', { stream: accessLogStream }));
+const accessLogStream = fs.createWriteStream(path.join(appPath.LOG_PATH, 'access.log'), {flags: 'a'});
+app.use(morgan('combined', {stream: accessLogStream}));
 app.use(morgan('dev'));
 
 // open the server
 app.listen(port, () => {
-    figlet('Express', (err, logo) => {
-        console.log(logo);
-        console.log(`Listening on port ${port}...`);
-    })
+	figlet('Express', (err, logo) => {
+		console.log(logo);
+		console.log(`Listening on port ${port}...`);
+	})
 });
 
 // set public path
@@ -42,5 +42,6 @@ app.use('/', api);
 
 /* handle error */
 app.use(function (err, req, res, next) {
-    res.status(err.status || 500).send('Something broke!');
+	if (err) console.log(err);
+	res.status(err.status || 500).send('Something broke!');
 });
